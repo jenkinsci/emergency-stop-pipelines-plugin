@@ -1,0 +1,72 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <l:layout title="Emergency Stop">
+    <l:main-panel>
+      <style>
+        .emergency-stop-container {
+          text-align: center;
+          margin: 50px auto;
+          max-width: 500px;
+        }
+        
+        .emergency-stop-button {
+          background-color: #dc3545 !important;
+          border: 2px solid #dc3545 !important;
+          color: white !important;
+          font-weight: bold !important;
+          padding: 15px 30px !important;
+          font-size: 18px !important;
+          border-radius: 8px !important;
+          text-decoration: none !important;
+          display: inline-block !important;
+          margin: 20px 0 !important;
+          cursor: pointer !important;
+          transition: background-color 0.3s ease !important;
+        }
+        
+        .emergency-stop-button:hover {
+          background-color: #c82333 !important;
+          border-color: #bd2130 !important;
+          color: white !important;
+        }
+        
+        .warning-text {
+          color: #856404;
+          background-color: #fff3cd;
+          border: 1px solid #ffeaa7;
+          padding: 15px;
+          border-radius: 4px;
+          margin: 20px 0;
+        }
+      </style>
+      
+      <div class="emergency-stop-container">
+        <h1>🚨 Emergency STOP (All Pipelines) 🚨</h1>
+        
+        <div class="warning-text">
+          <strong>Warning!</strong> This will immediately stop ALL running builds and cancel ALL queued items.
+          This action cannot be undone.
+        </div>
+        
+        <form method="post" action="stop" onsubmit="return confirmEmergencyStop();">
+          <input type="submit" value="ABORT ALL PIPELINES" class="emergency-stop-button" />
+        </form>
+        
+        <p style="margin-top: 30px;">
+          <a href="${rootURL}/">← Back to Jenkins Dashboard</a>
+        </p>
+      </div>
+      
+      <script>
+        function confirmEmergencyStop() {
+          return confirm('⚠️ EMERGENCY STOP WARNING ⚠️\n\n' +
+                        'This will IMMEDIATELY:\n' +
+                        '• Stop ALL running builds\n' +
+                        '• Cancel ALL queued items\n\n' +
+                        'This action CANNOT be undone!\n\n' +
+                        'Are you absolutely sure you want to proceed?');
+        }
+      </script>
+    </l:main-panel>
+  </l:layout>
+</j:jelly>

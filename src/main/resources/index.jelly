@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core">
+  This plugin provides an emergency stop button to immediately halt all running Jenkins builds.
+</j:jelly>
