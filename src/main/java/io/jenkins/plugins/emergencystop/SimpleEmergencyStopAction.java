@@ -37,6 +37,7 @@ public class SimpleEmergencyStopAction implements RootAction {
         return "emergency-stop";
     }
 
+    @POST
     public void doIndex(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         Jenkins jenkins = Jenkins.get();
         if (jenkins == null || !jenkins.hasPermission(Item.CANCEL)) {
