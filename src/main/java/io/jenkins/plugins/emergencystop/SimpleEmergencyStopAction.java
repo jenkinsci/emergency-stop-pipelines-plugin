@@ -2,16 +2,15 @@ package io.jenkins.plugins.emergencystop;
 
 import hudson.Extension;
 import hudson.model.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.verb.POST;
-
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Logger;
 
 @Extension
 public class SimpleEmergencyStopAction implements RootAction {
