@@ -36,7 +36,26 @@ version-resolver:
       - 'bugfix'
       - 'style'
   default: patch
+autolabeler:
+  - label: 'feat'
+    title:
+      - '^feat:'
+  - label: 'fix'
+    title:
+      - '^fix:'
+  - label: 'break'
+    title:
+      - '^break:'
+  - label: 'style'
+    title:
+      - '^style:'
 template: |
   ## Changes
 
   $CHANGES
+
+  ----------------------------------------------
+
+  ## Contributors
+  
+  $CONTRIBUTORS
