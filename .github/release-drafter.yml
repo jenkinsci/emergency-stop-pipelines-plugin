@@ -1,33 +1,40 @@
-# See https://github.com/jenkinsci/.github/blob/master/.github/release-drafter.adoc
+# .github/release-drafter.yml
 ---
-_extends: .github
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
   - title: '🚀 Features'
     labels:
-      - 'feat'
       - 'feature'
+      - 'feat'
   - title: '🐛 Bug Fixes'
     labels:
       - 'fix'
       - 'bugfix'
-  - title: '🧰 Breaking Change'
+  - title: '🧨 Breaking Changes'
     labels:
-      - 'chore'
       - 'break'
+  - title: '🎨 Styling'
+    labels:
+      - 'style'
+  - title: 'CI/CD Updates'
+    labels:
+      - 'ci'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
-change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+change-title-escapes: '\<*_&'
 version-resolver:
   major:
     labels:
-      - 'major'
+      - 'break'
   minor:
     labels:
-      - 'minor'
+      - 'feat'
+      - 'feature'
   patch:
     labels:
-      - 'patch'
+      - 'fix'
+      - 'bugfix'
+      - 'style'
   default: patch
 template: |
   ## Changes
