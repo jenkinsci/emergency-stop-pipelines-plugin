@@ -17,8 +17,8 @@ public class SimpleEmergencyStopAction implements RootAction {
 
     private static final Logger LOGGER = Logger.getLogger(SimpleEmergencyStopAction.class.getName());
 
-    private int stoppedPipelines;
-    private int notStoppedPipelines;
+    public int stoppedPipelines;
+    public int notStoppedPipelines;
     
     public int getStoppedPipelines() {
         return stoppedPipelines;

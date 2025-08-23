@@ -19,7 +19,10 @@
                 <h2>Result:</h2> 
                 <p>
                   ${requestScope.stoppedPipelines} pipelines stopped!
-                  ${requestScope.notStoppedPipelines} pipelines NOT stopped! Check logs for warnings/errors!
+                </p>
+                <p>
+                  ${requestScope.notStoppedPipelines} pipelines NOT stopped! </br>
+                  Check logs for warnings/errors!
                 </p>
             </div>
         
