@@ -30,7 +30,7 @@
         </p>
       </div>
       
-      <script src="emergency-stop-listeners.js"></script>
+      <script src="emergency-stop.js"></script>
     </l:main-panel>
   </l:layout>
 </j:jelly>
