@@ -1,7 +1,7 @@
 # See https://github.com/jenkinsci/.github/blob/master/.github/release-drafter.adoc
 ---
 _extends: .github
-name-template: 'v$RESOLVED_VERSION 🌈'
+name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
   - title: '🚀 Features'
