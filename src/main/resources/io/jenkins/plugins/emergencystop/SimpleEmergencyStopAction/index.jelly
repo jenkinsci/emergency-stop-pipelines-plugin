@@ -1,12 +1,12 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-  <l:layout title="Emergency Stop">
+  <l:layout title="Emergency Stop" permission="ADMINISTER">
     <l:main-panel>
       <style>
         .emergency-stop-container {
-          text-align: center;
-          margin: 50px auto;
-          max-width: 500px;
+            text-align: center;
+            margin: 50px auto;
+            max-width: 500px;
         }
       </style>
       
