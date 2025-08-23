@@ -1,6 +1,6 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-  <l:layout title="Emergency Stop Success" permission="CANCEL">
+  <l:layout title="Emergency Stop Success" permission="ADMINISTER">
     <l:main-panel>
         <style>
             .emergency-stop-container-success {
@@ -10,7 +10,7 @@
             }
         </style>
         
-        <meta http-equiv="refresh" content="115;url=${rootUrl}" />
+        <meta http-equiv="refresh" content="5;url=${rootURL}/" />
 
         <div class="emergency-stop-container-success jenkins-!-success-color" id="emergency-stop-container-success">
             <h2> Emergency Stop Completed </h2>
