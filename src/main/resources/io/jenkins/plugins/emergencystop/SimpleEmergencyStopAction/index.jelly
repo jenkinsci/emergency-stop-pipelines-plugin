@@ -1,6 +1,6 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:st="jelly:stapler" >
-  <l:layout title="Emergency Stop" permission="ADMINISTER">
+  <l:layout title="Emergency Stop" permission="${app.ADMINISTER}">
     <l:main-panel>
 
       <script src="${rootURL}/plugin/emergency-stop-pipelines/index.js"></script>
@@ -17,7 +17,10 @@
         <h1> <l:icon src="symbol-warning" class="icon-xlg  jenkins-!-destructive-color" /> Emergency Stop - All Pipelines <l:icon src="symbol-warning" class="icon-xlg  jenkins-!-destructive-color" /> </h1>
         
         <div class="jenkins-alert jenkins-alert-warning">
-          <strong>Warning!</strong> This will immediately stop ALL running builds and cancel ALL queued items.
+          Warning! 
+          <br/><br/>
+          This will immediately stop <u>ALL Running and Queued builds.</u>
+          <br/><br/>
           This action cannot be undone.
         </div>
         

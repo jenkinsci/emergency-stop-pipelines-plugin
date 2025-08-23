@@ -30,25 +30,19 @@ public class SimpleEmergencyStopAction implements RootAction {
     @Override
     public String getIconFileName() {
         Jenkins jenkins = Jenkins.get();
-        if (jenkins.hasPermission(Jenkins.ADMINISTER)) {
-            return "warning.png";
-        }
-        return null;
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "symbol-warning" : null; 
     }
 
     @Override
     public String getDisplayName() {
-        return "Emergency STOP Pipelines";
+        Jenkins jenkins = Jenkins.get();
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ?  "Emergency STOP Pipelines": null;
     }
 
     @Override
     public String getUrlName() {
-        return "emergency-stop";
-    }
-
-    @POST
-    public void doIndex(StaplerRequest2 req, StaplerResponse2 rsp) throws IOException, ServletException {
-        req.getView(this, "index.jelly").forward(req, rsp);
+        Jenkins jenkins = Jenkins.get();
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ?  "emergency-stop-pipelines": null;
     }
 
     @POST

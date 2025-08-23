@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
         dialog.confirm("Abort all pipelines?", {
             message: "This will stop all running jobs immediately. Are you sure?",
             cancelText: dialog.translations.no,
-            okText: dialog.translations.yes
+            okText: dialog.translations.yes,
+            type: "destructive"
         }).then(
             () => form.submit(),
             () => {},

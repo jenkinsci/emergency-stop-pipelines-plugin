@@ -1,6 +1,6 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:st="jelly:stapler" >
-  <l:layout title="Emergency Stop Success" permission="ADMINISTER">
+  <l:layout title="Emergency Stop Success" permission="${app.ADMINISTER}">
     <l:main-panel>
 
         <style>
