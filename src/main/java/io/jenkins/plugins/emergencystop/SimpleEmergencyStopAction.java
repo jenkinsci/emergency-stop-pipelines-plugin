@@ -30,7 +30,7 @@ public class SimpleEmergencyStopAction implements RootAction {
     @Override
     public String getIconFileName() {
         Jenkins jenkins = Jenkins.get();
-        if (jenkins.hasPermission(Item.ADMINISTER)) {
+        if (jenkins.hasPermission(Jenkins.ADMINISTER)) {
             return "warning.png";
         }
         return null;
@@ -55,7 +55,7 @@ public class SimpleEmergencyStopAction implements RootAction {
     public void doStop(StaplerRequest2 req, StaplerResponse2 rsp) throws IOException, ServletException {
         Jenkins jenkins = Jenkins.get();
 
-        if (!jenkins.hasPermission(Item.ADMINISTER)) {
+        if (!jenkins.hasPermission(Jenkins.ADMINISTER)) {
             rsp.sendError(403, "You need ADMIN permission to perform this action");
             return;
         }
