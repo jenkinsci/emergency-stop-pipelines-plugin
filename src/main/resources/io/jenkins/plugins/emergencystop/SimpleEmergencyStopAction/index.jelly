@@ -8,48 +8,21 @@
           margin: 50px auto;
           max-width: 500px;
         }
-        
-        .emergency-stop-button {
-          background-color: #dc3545 !important;
-          border: 2px solid #dc3545 !important;
-          color: white !important;
-          font-weight: bold !important;
-          padding: 15px 30px !important;
-          font-size: 18px !important;
-          border-radius: 8px !important;
-          text-decoration: none !important;
-          display: inline-block !important;
-          margin: 20px 0 !important;
-          cursor: pointer !important;
-          transition: background-color 0.3s ease !important;
-        }
-        
-        .emergency-stop-button:hover {
-          background-color: #c82333 !important;
-          border-color: #bd2130 !important;
-          color: white !important;
-        }
-        
-        .warning-text {
-          color: #856404;
-          background-color: #fff3cd;
-          border: 1px solid #ffeaa7;
-          padding: 15px;
-          border-radius: 4px;
-          margin: 20px 0;
-        }
       </style>
       
       <div class="emergency-stop-container">
-        <h1>🚨 Emergency STOP (All Pipelines) 🚨</h1>
+        <h1> <l:icon src="symbol-warning" class="icon-xlg  jenkins-!-destructive-color" /> Emergency Stop - All Pipelines <l:icon src="symbol-warning" class="icon-xlg  jenkins-!-destructive-color" /> </h1>
         
-        <div class="warning-text">
+        <div class="jenkins-alert jenkins-alert-warning">
           <strong>Warning!</strong> This will immediately stop ALL running builds and cancel ALL queued items.
           This action cannot be undone.
         </div>
         
         <form method="post" action="stop" id="emergency-stop-form">
-          <input type="submit" value="ABORT ALL PIPELINES" class="emergency-stop-button" />
+          <button class="jenkins-button  jenkins-!-destructive-color " >
+            <l:icon src="symbol-warning" class="icon-xlg" />
+              Abort all pipelines!
+          </button>
         </form>
         
         <p style="margin-top: 30px;">
