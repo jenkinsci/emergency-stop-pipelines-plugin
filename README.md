@@ -6,7 +6,7 @@ This plugin adds a button for "Emergency Stop" of Jenkins pipelines.
 
 ## Getting started
 
-Install emergency-stop-plugin from Plugin Manager.
+Install emergency-stop-pipelines plugin from Plugin Manager.
 
 ![Top Bar Menu.](/screenshots/top_bar_button.png)
 ![Main Page of Emergency Stop.](/screenshots/main_page.png)
