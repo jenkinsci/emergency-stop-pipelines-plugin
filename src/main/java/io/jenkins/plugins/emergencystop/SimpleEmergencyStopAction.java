@@ -2,10 +2,10 @@ package io.jenkins.plugins.emergencystop;
 
 import hudson.Extension;
 import hudson.model.*;
+import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
-import jakarta.servlet.ServletException;
 import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.StaplerRequest2;
@@ -19,10 +19,11 @@ public class SimpleEmergencyStopAction implements RootAction {
 
     public int stoppedPipelines;
     public int notStoppedPipelines;
-    
+
     public int getStoppedPipelines() {
         return stoppedPipelines;
     }
+
     public int getNotStoppedPipelines() {
         return notStoppedPipelines;
     }
@@ -30,19 +31,19 @@ public class SimpleEmergencyStopAction implements RootAction {
     @Override
     public String getIconFileName() {
         Jenkins jenkins = Jenkins.get();
-        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "symbol-warning" : null; 
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "symbol-warning" : null;
     }
 
     @Override
     public String getDisplayName() {
         Jenkins jenkins = Jenkins.get();
-        return jenkins.hasPermission(Jenkins.ADMINISTER) ?  "Emergency STOP Pipelines": null;
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "Emergency STOP Pipelines" : null;
     }
 
     @Override
     public String getUrlName() {
         Jenkins jenkins = Jenkins.get();
-        return jenkins.hasPermission(Jenkins.ADMINISTER) ?  "emergency-stop-pipelines": null;
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-pipelines" : null;
     }
 
     @POST
@@ -65,9 +66,10 @@ public class SimpleEmergencyStopAction implements RootAction {
                     if (build.isBuilding()) {
                         Executor executor = build.getExecutor();
                         if (executor != null) {
-                            executor.interrupt(Result.ABORTED,
-                                new CauseOfInterruption.UserInterruption("EMERGENCY STOP by " +
-                                        jenkins.getAuthentication2().getName()));
+                            executor.interrupt(
+                                    Result.ABORTED,
+                                    new CauseOfInterruption.UserInterruption("EMERGENCY STOP by "
+                                            + jenkins.getAuthentication2().getName()));
                             this.stoppedPipelines++;
                         } else {
                             LOGGER.warning("Cannot stop build (no executor): " + build.getFullDisplayName());
@@ -99,6 +101,5 @@ public class SimpleEmergencyStopAction implements RootAction {
         req.setAttribute("stoppedPipelines", this.stoppedPipelines);
         req.setAttribute("notStoppedPipelines", this.notStoppedPipelines);
         req.getView(this, "success.jelly").forward(req, rsp);
-        
     }
 }
