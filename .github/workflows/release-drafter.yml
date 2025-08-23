@@ -4,7 +4,7 @@ on:
   push:
     # branches to consider in the event; optional, defaults to all
     branches:
-      - v.*
+      - v1.*
 
   # pull_request event is required only for autolabeler
   pull_request:
