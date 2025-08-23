@@ -1,7 +1,8 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:st="jelly:stapler" >
   <l:layout title="Emergency Stop Success" permission="ADMINISTER">
     <l:main-panel>
+
         <style>
             .emergency-stop-container-success {
                 text-align: center;
@@ -21,8 +22,8 @@
                   ${requestScope.stoppedPipelines} pipelines stopped!
                 </p>
                 <p>
-                  ${requestScope.notStoppedPipelines} pipelines NOT stopped! </br>
-                  Check jenkins logs for warnings/errors!
+                  ${requestScope.notStoppedPipelines} pipelines NOT stopped!
+                  <br/> Check jenkins logs for warnings/errors!
                 </p>
             </div>
         

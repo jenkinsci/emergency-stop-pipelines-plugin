@@ -105,5 +105,6 @@ public class SimpleEmergencyStopAction implements RootAction {
         req.setAttribute("stoppedPipelines", this.stoppedPipelines);
         req.setAttribute("notStoppedPipelines", this.notStoppedPipelines);
         req.getView(this, "success.jelly").forward(req, rsp);
+        
     }
 }
