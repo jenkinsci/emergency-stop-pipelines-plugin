@@ -1,7 +1,10 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:st="jelly:stapler" >
   <l:layout title="Emergency Stop" permission="ADMINISTER">
     <l:main-panel>
+
+      <script src="${rootURL}/plugin/emergency-stop-pipelines/index.js"></script>
+
       <style>
         .emergency-stop-container {
             text-align: center;
@@ -29,8 +32,7 @@
           <a href="${rootURL}/"> ← Back to Jenkins Dashboard </a>
         </p>
       </div>
-      
-      <script src="emergency-stop.js"></script>
+
     </l:main-panel>
   </l:layout>
 </j:jelly>
