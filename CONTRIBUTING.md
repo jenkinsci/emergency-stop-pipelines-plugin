@@ -22,4 +22,4 @@ Others are encouraged to review pull requests, test pull-request builds, and rep
 
 # Maintainers
 
-For becoming a maintenainer, please open an issue with template "Request to become maintainer"
+For becoming a maintenainer, please open an issue with title "Request to become maintainer/contributor"
