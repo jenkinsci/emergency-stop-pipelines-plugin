@@ -17,10 +17,14 @@ public class SimpleEmergencyStopAction implements RootAction {
 
     private static final Logger LOGGER = Logger.getLogger(SimpleEmergencyStopAction.class.getName());
 
-    public int stoppedPipelines = 0;
+    private int stoppedPipelines;
+    private int notStoppedPipelines;
     
     public int getStoppedPipelines() {
         return stoppedPipelines;
+    }
+    public int getNotStoppedPipelines() {
+        return notStoppedPipelines;
     }
 
     @Override
@@ -56,7 +60,8 @@ public class SimpleEmergencyStopAction implements RootAction {
             return;
         }
 
-        int count = 0;
+        this.stoppedPipelines = 0;
+        this.notStoppedPipelines = 0;
 
         try {
             // Stop all running builds
@@ -69,9 +74,10 @@ public class SimpleEmergencyStopAction implements RootAction {
                             executor.interrupt(Result.ABORTED,
                                 new CauseOfInterruption.UserInterruption("EMERGENCY STOP by " +
                                         jenkins.getAuthentication2().getName()));
-                            count++;
+                            this.stoppedPipelines++;
                         } else {
                             LOGGER.warning("Cannot stop build (no executor): " + build.getFullDisplayName());
+                            this.notStoppedPipelines++;
                         }
                     }
                 }
@@ -82,9 +88,10 @@ public class SimpleEmergencyStopAction implements RootAction {
             for (Queue.Item item : queue.getItems()) {
                 boolean cancelled = queue.cancel(item);
                 if (cancelled) {
-                    count++;
+                    this.stoppedPipelines++;
                 } else {
                     LOGGER.warning("Failed to cancel queued item: " + item.task.getFullDisplayName());
+                    this.notStoppedPipelines++;
                 }
             }
 
@@ -94,9 +101,9 @@ public class SimpleEmergencyStopAction implements RootAction {
             return;
         }
 
-        this.stoppedPipelines = count;
-
         rsp.setContentType("text/html");
+        req.setAttribute("stoppedPipelines", this.stoppedPipelines);
+        req.setAttribute("notStoppedPipelines", this.notStoppedPipelines);
         req.getView(this, "success.jelly").forward(req, rsp);
     }
 }

@@ -18,7 +18,8 @@
             <div class="jenkins-alert jenkins-alert-success">
                 <h2>Result:</h2> 
                 <p>
-                  ${this.getStoppedPipelines()} pipelines stopped!
+                  ${requestScope.stoppedPipelines} pipelines stopped!
+                  ${requestScope.notStoppedPipelines} pipelines NOT stopped! Check logs for warnings/errors!
                 </p>
             </div>
         
@@ -30,6 +31,7 @@
                 <a href="${rootURL}/"> ← Back to Jenkins Dashboard </a>
             </p>
         </div>
+        
         </l:main-panel>
   </l:layout>
 </j:jelly>
