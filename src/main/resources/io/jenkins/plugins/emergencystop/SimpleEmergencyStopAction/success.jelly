@@ -23,7 +23,7 @@
                 </p>
                 <p>
                   ${requestScope.notStoppedPipelines} pipelines NOT stopped!
-                  <br/> Check jenkins logs for warnings/errors!
+                  <br/> Check jenkins logs for warnings - errors!
                 </p>
             </div>
         
