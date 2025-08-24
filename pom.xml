@@ -14,7 +14,7 @@
   <artifactId>emergency-stop-pipelines</artifactId>
 
   <version>${changelist}</version>
-  
+
   <packaging>hpi</packaging>
 
   <name>Emergency Stop Pipelines</name>
