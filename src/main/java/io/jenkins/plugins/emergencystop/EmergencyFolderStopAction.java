@@ -3,6 +3,7 @@ package io.jenkins.plugins.emergencystop;
 import com.cloudbees.hudson.plugins.folder.AbstractFolder;
 import com.cloudbees.hudson.plugins.folder.Folder;
 import hudson.model.Action;
+import hudson.model.Executor;
 import hudson.model.Job;
 import hudson.model.Queue;
 import hudson.model.Result;
@@ -10,10 +11,7 @@ import hudson.model.Run;
 import hudson.model.TopLevelItem;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
-import hudson.model.Executor;
-
 import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.StaplerRequest2;
@@ -44,7 +42,6 @@ public class EmergencyFolderStopAction implements Action {
         return jenkins.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-folder-pipelines" : null;
     }
 
-    
     public void doStop(StaplerRequest2 req, StaplerResponse2 rsp) throws IOException, ServletException {
         if (!"GET".equals(req.getMethod())) {
             rsp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET required");
@@ -73,11 +70,9 @@ public class EmergencyFolderStopAction implements Action {
                         Executor executor = build.getExecutor();
                         if (executor != null) {
                             executor.interrupt(
-                                Result.ABORTED,
-                                new CauseOfInterruption.UserInterruption(
-                                    "EMERGENCY STOP by " + Jenkins.getAuthentication2().getName()
-                                )
-                            );
+                                    Result.ABORTED,
+                                    new CauseOfInterruption.UserInterruption("EMERGENCY STOP by "
+                                            + Jenkins.getAuthentication2().getName()));
                         }
                     }
                 }
@@ -95,5 +90,4 @@ public class EmergencyFolderStopAction implements Action {
             }
         }
     }
-
 }
