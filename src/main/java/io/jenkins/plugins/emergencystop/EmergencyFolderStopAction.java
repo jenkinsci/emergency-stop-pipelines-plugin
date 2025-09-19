@@ -12,14 +12,12 @@ import hudson.model.TopLevelItem;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 
 import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.StaplerResponse2;
 import org.kohsuke.stapler.verb.GET;
-import org.kohsuke.stapler.verb.POST;
 
 public class EmergencyFolderStopAction implements Action {
     private final Folder folder;
