@@ -5,7 +5,6 @@ import hudson.Extension;
 import hudson.model.Action;
 import java.util.Collection;
 import java.util.Collections;
-
 import jenkins.model.Jenkins;
 import jenkins.model.TransientActionFactory;
 
