@@ -12,6 +12,8 @@ import hudson.model.TopLevelItem;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+
 import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.StaplerRequest2;
@@ -43,6 +45,13 @@ public class EmergencyFolderStopAction implements Action {
     }
 
     public void doStop(StaplerRequest2 req, StaplerResponse2 rsp) throws IOException, ServletException {
+        
+        Jenkins jenkins = Jenkins.get();
+        if (!jenkins.hasPermission(Jenkins.ADMINISTER)) {
+            rsp.sendError(403, "You need ADMIN permission to perform this action");
+            return;
+        }
+
         if (!"GET".equals(req.getMethod())) {
             rsp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET required");
             return;
