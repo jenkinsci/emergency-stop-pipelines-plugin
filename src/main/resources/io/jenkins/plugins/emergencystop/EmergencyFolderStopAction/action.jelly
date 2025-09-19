@@ -1,0 +1,13 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:f="/lib/form">
+
+  <script src="${rootURL}/plugin/emergency-stop-pipelines/index.js"></script>
+
+  <l:task
+    title="Emerg. Stop Folder Pipelines"
+    href="#"
+    id="emergency-stop-folder-pipeline-button"
+    icon="symbol-warning"
+    data-submit-url="emergency-stop-folder-pipelines/stop" />
+      
+</j:jelly>
