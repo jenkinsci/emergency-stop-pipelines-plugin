@@ -48,12 +48,20 @@
       <dependency>
         <groupId>io.jenkins.tools.bom</groupId>
         <artifactId>bom-${jenkins.baseline}.x</artifactId>
-        <version>5294.va_d2e144c80e1</version>
+        <version>5388.v3ea_2e00a_719a_</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>cloudbees-folder</artifactId>
+      <version>6.1042.v37b_8229708e4</version>
+    </dependency>
+  </dependencies>
 
   <repositories>
     <repository>

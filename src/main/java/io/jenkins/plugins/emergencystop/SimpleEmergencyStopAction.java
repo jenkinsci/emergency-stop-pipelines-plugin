@@ -1,7 +1,12 @@
 package io.jenkins.plugins.emergencystop;
 
 import hudson.Extension;
-import hudson.model.*;
+import hudson.model.Executor;
+import hudson.model.Job;
+import hudson.model.Queue;
+import hudson.model.Result;
+import hudson.model.RootAction;
+import hudson.model.Run;
 import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.util.List;
@@ -17,8 +22,8 @@ public class SimpleEmergencyStopAction implements RootAction {
 
     private static final Logger LOGGER = Logger.getLogger(SimpleEmergencyStopAction.class.getName());
 
-    public int stoppedPipelines;
-    public int notStoppedPipelines;
+    private int stoppedPipelines;
+    private int notStoppedPipelines;
 
     public int getStoppedPipelines() {
         return stoppedPipelines;
@@ -69,7 +74,7 @@ public class SimpleEmergencyStopAction implements RootAction {
                             executor.interrupt(
                                     Result.ABORTED,
                                     new CauseOfInterruption.UserInterruption("EMERGENCY STOP by "
-                                            + jenkins.getAuthentication2().getName()));
+                                            + Jenkins.getAuthentication2().getName()));
                             this.stoppedPipelines++;
                         } else {
                             LOGGER.warning("Cannot stop build (no executor): " + build.getFullDisplayName());
