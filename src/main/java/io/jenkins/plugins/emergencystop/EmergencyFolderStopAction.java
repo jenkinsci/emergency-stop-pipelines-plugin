@@ -18,6 +18,7 @@ import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.StaplerResponse2;
+import org.kohsuke.stapler.verb.POST;
 
 public class EmergencyFolderStopAction implements Action {
     private final Folder folder;
@@ -44,6 +45,7 @@ public class EmergencyFolderStopAction implements Action {
         return jenkins.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-folder-pipelines" : null;
     }
 
+    @GET
     public void doStop(StaplerRequest2 req, StaplerResponse2 rsp) throws IOException, ServletException {
         
         Jenkins jenkins = Jenkins.get();
