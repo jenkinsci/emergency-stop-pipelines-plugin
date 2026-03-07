@@ -2,15 +2,8 @@ package io.jenkins.plugins.emergencystop;
 
 import com.cloudbees.hudson.plugins.folder.AbstractFolder;
 import com.cloudbees.hudson.plugins.folder.Folder;
-import hudson.model.Action;
-import hudson.model.Executor;
-import hudson.model.Job;
-import hudson.model.Queue;
-import hudson.model.Result;
-import hudson.model.Run;
-import hudson.model.TopLevelItem;
+import hudson.model.*;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
@@ -27,67 +20,57 @@ public class EmergencyFolderStopAction implements Action {
 
     @Override
     public String getIconFileName() {
-        Jenkins jenkins = Jenkins.get();
-        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "symbol-warning" : null;
+        // Use folder-specific permission check for better security granularity
+        return folder.hasPermission(Jenkins.ADMINISTER) ? "symbol-stop-circle" : null;
     }
 
     @Override
     public String getDisplayName() {
-        Jenkins jenkins = Jenkins.get();
-        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "Emerg. Stop Folder Pipelines" : null;
+        return folder.hasPermission(Jenkins.ADMINISTER) ? "Emergency Stop Folder Pipelines" : null;
     }
 
     @Override
     public String getUrlName() {
-        Jenkins jenkins = Jenkins.get();
-        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-folder-pipelines" : null;
+        return folder.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-folder-pipelines" : null;
     }
 
     @GET
     public void doStop(StaplerRequest2 req, StaplerResponse2 rsp) throws IOException, ServletException {
-
-        Jenkins jenkins = Jenkins.get();
-        if (!jenkins.hasPermission(Jenkins.ADMINISTER)) {
-            rsp.sendError(403, "You need ADMIN permission to perform this action");
-            return;
-        }
-
-        if (!"GET".equals(req.getMethod())) {
-            rsp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET required");
-            return;
-        }
+        // Use checkPermission to throw a proper 403 UI page instead of a raw error
+        folder.checkPermission(Jenkins.ADMINISTER);
 
         try {
-            stopFolderRecursively(folder);
+            // Get the name ONCE to avoid repeated Auth calls in the loop
+            String stopUser = Jenkins.getAuthentication2().getName();
+            stopFolderRecursively(folder, stopUser);
+
+            // Redirect back to the folder instead of a blank 200 page
+            rsp.sendRedirect2(req.getContextPath() + "/" + folder.getUrl());
         } catch (Exception e) {
             rsp.sendError(500, "Error during emergency stop: " + e.getMessage());
-            return;
         }
-
-        rsp.setStatus(200);
     }
 
     /**
      * Recursively stops all running builds and queued items in this folder and subfolders.
      */
-    private void stopFolderRecursively(AbstractFolder<?> currentFolder) {
-        // Stop running builds for jobs in this folder
+    private void stopFolderRecursively(AbstractFolder<?> currentFolder, String stopUser) {
+        CauseOfInterruption cause = new CauseOfInterruption.UserInterruption("EMERGENCY STOP by " + stopUser);
+
         for (TopLevelItem item : currentFolder.getItems()) {
             if (item instanceof Job<?, ?> job) {
                 for (Run<?, ?> build : job.getBuilds()) {
                     if (build.isBuilding()) {
                         Executor executor = build.getExecutor();
                         if (executor != null) {
-                            executor.interrupt(
-                                    Result.ABORTED,
-                                    new CauseOfInterruption.UserInterruption("EMERGENCY STOP by "
-                                            + Jenkins.getAuthentication2().getName()));
+                            executor.interrupt(Result.ABORTED, cause);
                         }
                     }
                 }
             } else if (item instanceof AbstractFolder<?> subFolder) {
+
                 // Recurse into subfolder
-                stopFolderRecursively(subFolder);
+                stopFolderRecursively(subFolder, stopUser);
             }
         }
 
