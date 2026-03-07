@@ -4,7 +4,6 @@ import com.cloudbees.hudson.plugins.folder.AbstractFolder;
 import com.cloudbees.hudson.plugins.folder.Folder;
 import hudson.model.*;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
@@ -44,7 +43,7 @@ public class EmergencyFolderStopAction implements Action {
             // Get the name ONCE to avoid repeated Auth calls in the loop
             String stopUser = Jenkins.getAuthentication2().getName();
             stopFolderRecursively(folder, stopUser);
-            
+
             // Redirect back to the folder instead of a blank 200 page
             rsp.sendRedirect2(req.getContextPath() + "/" + folder.getUrl());
         } catch (Exception e) {
@@ -57,7 +56,7 @@ public class EmergencyFolderStopAction implements Action {
      */
     private void stopFolderRecursively(AbstractFolder<?> currentFolder, String stopUser) {
         CauseOfInterruption cause = new CauseOfInterruption.UserInterruption("EMERGENCY STOP by " + stopUser);
-        
+
         for (TopLevelItem item : currentFolder.getItems()) {
             if (item instanceof Job<?, ?> job) {
                 for (Run<?, ?> build : job.getBuilds()) {
@@ -69,7 +68,7 @@ public class EmergencyFolderStopAction implements Action {
                     }
                 }
             } else if (item instanceof AbstractFolder<?> subFolder) {
-                
+
                 // Recurse into subfolder
                 stopFolderRecursively(subFolder, stopUser);
             }
