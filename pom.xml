@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>5.23</version>
+    <version>6.2189.v695a_c41f5249</version>
     <relativePath />
   </parent>
 
@@ -49,7 +49,7 @@
       <dependency>
         <groupId>io.jenkins.tools.bom</groupId>
         <artifactId>bom-${jenkins.baseline}.x</artifactId>
-        <version>6128.v8e4ce4620a_2b_</version>
+        <version>6509.v993a_c958a_e35</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -60,7 +60,7 @@
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>cloudbees-folder</artifactId>
-      <version>6.1079.vc0975c2de294</version>
+      <version>6.1100.ve9eed61d16c4</version>
     </dependency>
   </dependencies>
 
