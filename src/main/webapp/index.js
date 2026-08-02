@@ -32,8 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }).then(
             () => {
                 fetch(emergency_stop_folder_button.dataset.submitUrl, {
-                    method: "GET",
-                    credentials: "same-origin"
+                    method: "POST",
+                    credentials: "same-origin",
+                    headers: {
+                        "Jenkins-Crumb": document.querySelector('[name="Jenkins-Crumb"]')?.value || ""
+                    }
                 }).then(() => {
                     notificationBar.show('Triggered emergency stop of folder pipelines.', notificationBar.WARNING)
                 }).catch(err => {

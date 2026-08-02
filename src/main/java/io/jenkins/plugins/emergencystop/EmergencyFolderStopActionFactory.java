@@ -18,7 +18,7 @@ public class EmergencyFolderStopActionFactory extends TransientActionFactory<Fol
 
     @Override
     public Collection<? extends Action> createFor(Folder folder) {
-        if (!Jenkins.get().hasPermission(Jenkins.ADMINISTER)) {
+        if (!folder.hasPermission(Jenkins.ADMINISTER)) {
             return Collections.emptyList(); // no action for non-admins
         }
         return Collections.singletonList(new EmergencyFolderStopAction(folder));
