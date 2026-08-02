@@ -20,23 +20,25 @@ public class EmergencyFolderStopAction implements Action {
 
     @Override
     public String getIconFileName() {
-        // Use folder-specific permission check for better security granularity
-        return folder.hasPermission(Jenkins.ADMINISTER) ? "symbol-stop-circle" : null;
+        Jenkins jenkins = Jenkins.get();
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "symbol-stop-circle" : null;
     }
 
     @Override
     public String getDisplayName() {
-        return folder.hasPermission(Jenkins.ADMINISTER) ? "Emergency Stop Folder Pipelines" : null;
+        Jenkins jenkins = Jenkins.get();
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "Emergency Stop Folder Pipelines" : null;
     }
 
     @Override
     public String getUrlName() {
-        return folder.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-folder-pipelines" : null;
+        Jenkins jenkins = Jenkins.get();
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-folder-pipelines" : null;
     }
 
     @POST
     public void doStop(StaplerRequest2 req, StaplerResponse2 rsp) throws IOException, ServletException {
-        folder.checkPermission(Jenkins.ADMINISTER);
+        Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
         try {
             String stopUser = Jenkins.getAuthentication2().getName();

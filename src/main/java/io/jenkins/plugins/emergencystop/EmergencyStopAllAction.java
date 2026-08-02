@@ -18,9 +18,9 @@ import org.kohsuke.stapler.StaplerResponse2;
 import org.kohsuke.stapler.verb.POST;
 
 @Extension
-public class SimpleEmergencyStopAction implements RootAction {
+public class EmergencyStopAllAction implements RootAction {
 
-    private static final Logger LOGGER = Logger.getLogger(SimpleEmergencyStopAction.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(EmergencyStopAllAction.class.getName());
 
     @Override
     public String getIconFileName() {

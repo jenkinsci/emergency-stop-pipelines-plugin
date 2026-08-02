@@ -1,0 +1,15 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:f="/lib/form">
+
+  <script src="${rootURL}/plugin/emergency-stop-pipelines/index.js"></script>
+
+  <form method="post" action="emergency-stop-job/stop" id="emergency-stop-job-form" style="display:none"></form>
+
+  <l:task
+    title="Emerg. Stop All Builds"
+    href="#"
+    id="emergency-stop-job-pipeline-button"
+    icon="symbol-warning"
+    data-form-id="emergency-stop-job-form" />
+
+</j:jelly>

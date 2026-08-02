@@ -1,25 +1,84 @@
-# Contributing to this Plugin
+# Contributing to Emergency Stop Pipelines
 
-Plugin source code is hosted on GitHub. 
-New feature proposals and bug fix proposals should be submitted as GitHub pull requests. 
+Thank you for your interest in contributing to this plugin!
 
-Before submitting your change, please assure that you’ve tested your changes locally. 
-If possible, create tests to help assure that we’re delivering a reliable plugin. 
+## Getting Started
 
-Compile and test the plugin with the command:
+### Prerequisites
 
-`mvn clean verify`
+- Java 21 or later
+- Apache Maven 3.9+
+- Git
 
-Use SpotBugs to check the build.
+### Building Locally
 
-`mvn spotbugs:check` 
+```bash
+mvn clean verify
+```
 
-# Reviewing Pull Requests
+This compiles the plugin, runs tests, and packages the HPI file.
 
-Your pull request will be evaluated manually, this may take long time. Please be patient.
+### Code Style
 
-Others are encouraged to review pull requests, test pull-request builds, and report their results in the pull request.
+This project uses [Spotless](https://github.com/diffplug/spotless) for code formatting. The formatter is applied automatically during the build. To manually format your code:
 
-# Maintainers
+```bash
+mvn spotless:apply
+```
 
-For becoming a maintenainer, please open an issue with title "Request to become maintainer/contributor"
+To check formatting without applying changes:
+
+```bash
+mvn spotless:check
+```
+
+### Submitting Changes
+
+1. Fork the repository and create a feature branch from `main`.
+2. Make your changes with clear, atomic commits.
+3. Ensure all checks pass (`mvn clean verify`).
+4. Write tests for new or changed behavior (see [TESTS.md](TESTS.md) for the testing guide).
+5. Submit a pull request describing the change and its motivation.
+
+### Commit Guidelines
+
+Follow conventional commit style:
+
+- `feat:` — new feature
+- `fix:` — bug fix
+- `docs:` — documentation changes
+- `refactor:` — code restructuring without behavior change
+- `test:` — test additions or updates
+- `chore:` — maintenance tasks (deps, config, etc.)
+
+## Testing
+
+See [TESTS.md](TESTS.md) for a detailed guide on writing and running tests. In summary:
+
+- Use `mvn test` to run all tests.
+- Use `mvn spotless:check` to verify code formatting.
+- All changes must pass `mvn clean verify` before submission.
+
+## Reviewing Pull Requests
+
+Pull requests are reviewed manually. Please be patient — review times may vary.
+
+Community reviewers are encouraged to:
+
+- Test pull request builds
+- Verify that changes address the reported issue
+- Leave constructive feedback
+
+## Reporting Issues
+
+Open a GitHub issue with a clear title and description, including:
+
+- Jenkins version
+- Plugin version
+- Steps to reproduce
+- Expected vs. actual behavior
+- Relevant logs (if applicable)
+
+## Maintainers
+
+To request maintainer or contributor status, open an issue titled "Request to become maintainer/contributor".
