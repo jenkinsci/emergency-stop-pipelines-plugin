@@ -9,7 +9,7 @@ import jenkins.model.CauseOfInterruption;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.StaplerResponse2;
-import org.kohsuke.stapler.verb.GET;
+import org.kohsuke.stapler.verb.POST;
 
 public class EmergencyFolderStopAction implements Action {
     private final Folder folder;
@@ -20,31 +20,30 @@ public class EmergencyFolderStopAction implements Action {
 
     @Override
     public String getIconFileName() {
-        // Use folder-specific permission check for better security granularity
-        return folder.hasPermission(Jenkins.ADMINISTER) ? "symbol-stop-circle" : null;
+        Jenkins jenkins = Jenkins.get();
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "symbol-stop-circle" : null;
     }
 
     @Override
     public String getDisplayName() {
-        return folder.hasPermission(Jenkins.ADMINISTER) ? "Emergency Stop Folder Pipelines" : null;
+        Jenkins jenkins = Jenkins.get();
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "Emergency Stop Folder Pipelines" : null;
     }
 
     @Override
     public String getUrlName() {
-        return folder.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-folder-pipelines" : null;
+        Jenkins jenkins = Jenkins.get();
+        return jenkins.hasPermission(Jenkins.ADMINISTER) ? "emergency-stop-folder-pipelines" : null;
     }
 
-    @GET
+    @POST
     public void doStop(StaplerRequest2 req, StaplerResponse2 rsp) throws IOException, ServletException {
-        // Use checkPermission to throw a proper 403 UI page instead of a raw error
-        folder.checkPermission(Jenkins.ADMINISTER);
+        Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 
         try {
-            // Get the name ONCE to avoid repeated Auth calls in the loop
             String stopUser = Jenkins.getAuthentication2().getName();
             stopFolderRecursively(folder, stopUser);
 
-            // Redirect back to the folder instead of a blank 200 page
             rsp.sendRedirect2(req.getContextPath() + "/" + folder.getUrl());
         } catch (Exception e) {
             rsp.sendError(500, "Error during emergency stop: " + e.getMessage());
@@ -68,8 +67,6 @@ public class EmergencyFolderStopAction implements Action {
                     }
                 }
             } else if (item instanceof AbstractFolder<?> subFolder) {
-
-                // Recurse into subfolder
                 stopFolderRecursively(subFolder, stopUser);
             }
         }
